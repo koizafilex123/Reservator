@@ -1,0 +1,64 @@
+﻿
+@model List<Restaurant>
+
+
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+    *@
+@{
+}
+<div class="restorant-index">
+
+    <div>
+        @{
+            var date=DateTime.UtcNow;
+             date= date.AddDays(-10);
+            <p>@GlobalConstants.FormatDate(date)</p>
+
+
+        }
+
+    </div>
+
+
+    @if (Model.Any())
+    {
+        <h1 class="text-danger" r>Here are restauants many many many</h1>
+        <p>@Model.Count() - First Rest is called- @Model.First().Name</p>
+    }
+    else
+    {
+        <p>No restoraunts in database!</p>
+    }
+
+    <div class="d-flex flex-wrap justify-content-around">
+        @*   @for (int i = 0; i < 1; i++)
+        {*@
+        @foreach (Restaurant rest in Model)
+        {
+            <div class="card my-4" style="width: 18rem;">
+                <img src="@rest.MainPic" class="card-img-top" alt="main-pic">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-utensils"></i> @rest.Name</h5>
+                    @if (rest.Places.Any())
+                    {
+                        <p class="card-text"><i class="fas fa-map-marked-alt text-danger"></i> Места в ресторанта @(string.Join(", ", rest.Places.Select(p => p.Location)))</p>
+                    }
+                    else
+                    {
+                        <p class="card-text">Няма никакви места в ресторанта!</p>
+                    }
+
+                    <a asp-action="Details" asp-route-id="@rest.Id" class="btn btn-warning">Подробна информация</a>
+                </div>
+            </div>
+        }
+
+        @*  }*@
+    </div>
+
+
+
+
+</div>
