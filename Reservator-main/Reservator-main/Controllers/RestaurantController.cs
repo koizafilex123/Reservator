@@ -28,6 +28,28 @@ namespace Reservator.Controllers
             return View(allRestaurants);
         }
 
+        public IActionResult Add()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        public IActionResult Add(InputRestaurantModel model)
+        {
+            var restaurant = new Restaurant
+            {
+                Name = model.Name,
+                MainPic = model.MainPic,
+                Address = model.Address,
+                Pictures = model.Pictures,
+                Town = model.Town,
+                Rating = model.Rating,
+            };
+            db.Restaurants.Add(restaurant);
+            db.SaveChanges();
+            return this.RedirectToAction("Index");
+        }
+
         public IActionResult Details(int id)
         {
             Restaurant restaurantFd = db.Restaurants.Where(x => x.IsDeleted == false)
@@ -51,10 +73,10 @@ namespace Reservator.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-       
+
         [HttpPost]
         public IActionResult Delete(int id)
-        {                      
+        {
             Restaurant restaurantFd = db.Restaurants.FirstOrDefault(r => r.Id == id);
             restaurantFd.IsDeleted = true;
             db.Update(restaurantFd);
