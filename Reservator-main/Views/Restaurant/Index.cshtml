@@ -1,0 +1,77 @@
+﻿@model ICollection<Reservator.Models.InputRestaurantModel>
+
+
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="restorant-index">
+
+
+
+
+    @if (Model.Any())
+    {
+        <h1>Налични ресторанти</h1>
+
+    }
+    else
+    {
+        <p>Няма ресторанти</p>
+    }
+    @* @foreach (var item in Model)
+        {
+
+        }*@
+    <div class="d-flex flex-wrap justify-content-around">
+        @*   @for (int i = 0; i < 1; i++)
+            {*@
+        @foreach (var rest in Model)
+        {
+            <div class="card my-4" style="width: 18rem;">
+                <img src="@rest.ImgURL" style="height:200px;" class="card-img-top" alt="main-pic">
+                <div class="card-body">
+                    <h5 class="card-title float-start"><i class="fas fa-utensils"></i> @rest.Name</h5>
+                    <h6 class="card-title float-end">@rest.Price</h6>
+
+                    <br><br>
+
+                    @*@if (rest.Places.Any())
+                        {
+                        <p class="card-text"><i class="fas fa-map-marked-alt text-danger"></i> Места в ресторанта @(string.Join(", ", rest.Places.Select(p => p.Location)))</p>
+                        }
+                        else
+                        {
+                        <p class="card-text">Няма никакви места в ресторанта!</p>
+                        }
+                    *@
+                    <div class="d-flex justify-content-center">
+
+                    <a asp-action="Details" style="margin-right:5px; background-color:#ff7407; font-size:14px;" asp-route-id="@rest.Id" class="btn "><b>Подробна информация</b></a>
+
+                    @*<a asp-action="DeleteRest" asp-route-id="@rest.Id">
+                        <button class="btn btn-danger">
+                        <i class="fas fa-trash"></i>
+                        </button>
+                        </a>*@
+                        <a @*asp-action="DeleteRest" asp-route-id="@rest.Id"*@>
+                            <button class="btn" style="background-color:black;">
+                                @*<i class="fa-solid fa-trash-can float-left" style="  color:white;">Iztriy</i>*@
+                                <i class="fas fa-pen" style="color:white;"></i>
+                            </button>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        }
+
+        @*  }*@
+    </div>
+
+
+
+
+</div>
