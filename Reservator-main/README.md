@@ -1,2 +1,0 @@
-# Reservator
-Reservator demo project
