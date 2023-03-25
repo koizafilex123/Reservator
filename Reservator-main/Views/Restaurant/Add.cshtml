@@ -1,0 +1,61 @@
+﻿@model Reservator.Models.InputRestaurantModel
+
+<br>
+<br>
+<br>
+<form style="display:grid; place-items:center;" method="post" enctype="multipart/form-data">
+
+
+
+
+
+
+
+
+    <div class="form-group">
+        <label asp-for="Name" class="control-label">Име на ресторант </label>
+        <input asp-for="Name" id="form" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+
+    <div class="form-group">
+        <label asp-for="Address" class="control-label">Адрес</label>
+        <input asp-for="Address" id="form" class="form-control" />
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Town" class="control-label">Град</label>
+        <input asp-for="Town" id="form" class="form-control" />
+        <span asp-validation-for="Town" class="text-danger"></span>
+    </div>
+
+    @*  <div class="form-group">
+        <label asp-for="d" class="control-label">Град</label>
+        <input asp-for="Town" id="form" class="form-control" />
+        <span asp-validation-for="Town" class="text-danger"></span>
+        </div>*@
+
+    <div class="form-group">
+        <label asp-for="Price" class="control-label">Цена </label>
+        <input asp-for="Price" id="form" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Image" class="control-label"></label>
+        <input asp-for="Image" class="form-control" />
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+
+
+
+    <br />
+    <input type="submit" class="btn " style="background-color:#ff7407;  " value="Добави ресторант" />
+</form>
+<style>
+    #form {
+        width: 350px;
+    }
+</style>

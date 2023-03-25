@@ -1,0 +1,17 @@
+FName:Reservator123
+LName:Reservator123
+UserName:Reservator123
+PWD:23Hi&kkasd86565
+email:jarsxlsixsvbgmxlsj@tmmbt.net
+
+SQLServerAddress:Reservator123.mssql.somee.com
+
+Login:Reservator123_SQLLogin_1
+
+L_pwd:olxmm54naw
+
+ConnectionString:workstation id=Reservator123.mssql.somee.com;packet size=4096;user id=Reservator123_SQLLogin_1;pwd=olxmm54naw;data source=Reservator123.mssql.somee.com;persist security info=False;initial catalog=Reservator123
+
+INSERT INTO Restaurants(Name,Town,Address,MainPic,Pictures,IsDeleted,Rating) VALUES
+('Orbita',0,'Gore do kioshkovete sled birenata fabrika','https://shumen-orbita.com/images/hotel.jpg','https://shumen-orbita.com/images/slider-3.jpg|https://shumen-orbita.com/images/slider-2.jpg',0,4),
+('Orbita1',0,'Gore do kioshkovete sled birenata fabrika','https://shumen-orbita.com/images/hotel.jpg','https://shumen-orbita.com/images/slider-3.jpg|https://shumen-orbita.com/images/slider-2.jpg',0,4)
