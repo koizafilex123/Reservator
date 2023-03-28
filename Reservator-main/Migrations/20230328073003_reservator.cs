@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Reservator.Migrations
 {
-    public partial class initial : Migration
+    public partial class reservator : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -56,11 +56,12 @@ namespace Reservator.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Town = table.Column<int>(type: "int", nullable: false),
+                    Town = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MainPic = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Pictures = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Rating = table.Column<int>(type: "int", nullable: false),
+                    MainPic = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Pictures = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Rating = table.Column<double>(type: "float", nullable: true),
+                    Price = table.Column<double>(type: "float", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -175,6 +176,26 @@ namespace Reservator.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Images",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Extention = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RestaurantId = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Images", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Images_Restaurants_RestaurantId",
+                        column: x => x.RestaurantId,
+                        principalTable: "Restaurants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Places",
                 columns: table => new
                 {
@@ -199,14 +220,39 @@ namespace Reservator.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RestaurantUserGrades",
+                columns: table => new
+                {
+                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RestaurantId = table.Column<int>(type: "int", nullable: false),
+                    Grade = table.Column<int>(type: "int", nullable: false),
+                    Time = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RestaurantUserGrades", x => new { x.AppUserId, x.RestaurantId });
+                    table.ForeignKey(
+                        name: "FK_RestaurantUserGrades_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RestaurantUserGrades_Restaurants_RestaurantId",
+                        column: x => x.RestaurantId,
+                        principalTable: "Restaurants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Reservations",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PlaceId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ClientId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Time = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -214,10 +260,11 @@ namespace Reservator.Migrations
                 {
                     table.PrimaryKey("PK_Reservations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Reservations_AspNetUsers_ClientId",
-                        column: x => x.ClientId,
+                        name: "FK_Reservations_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Reservations_Places_PlaceId",
                         column: x => x.PlaceId,
@@ -266,19 +313,29 @@ namespace Reservator.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Images_RestaurantId",
+                table: "Images",
+                column: "RestaurantId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Places_RestaurantId",
                 table: "Places",
                 column: "RestaurantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservations_ClientId",
-                table: "Reservations",
-                column: "ClientId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Reservations_PlaceId",
                 table: "Reservations",
                 column: "PlaceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_UserId",
+                table: "Reservations",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RestaurantUserGrades_RestaurantId",
+                table: "RestaurantUserGrades",
+                column: "RestaurantId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -299,16 +356,22 @@ namespace Reservator.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Images");
+
+            migrationBuilder.DropTable(
                 name: "Reservations");
+
+            migrationBuilder.DropTable(
+                name: "RestaurantUserGrades");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Places");
 
             migrationBuilder.DropTable(
-                name: "Places");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Restaurants");

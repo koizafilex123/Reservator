@@ -12,8 +12,8 @@ using Reservator.Data;
 namespace Reservator.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230325204933_reservatorDB2")]
-    partial class reservatorDB2
+    [Migration("20230328073003_reservator")]
+    partial class reservator
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

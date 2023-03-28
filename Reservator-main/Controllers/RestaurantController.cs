@@ -126,42 +126,57 @@ namespace Reservator.Controllers
 
         public IActionResult Details(int id)
         {
+
+
             //string myId = (await GetCurrentUserAsync()).Id;
-
-
-            Restaurant restaurantFd = db.Restaurants.Where(x => x.IsDeleted == false)
-                .Include(r => r.Places).FirstOrDefault(r => r.Id == id);
-
-            var result = new DetailsRestaurantDTO_out();
-            result.Restarant = restaurantFd;
-
-            var t = db.Reservations.Include(r => r.Place).ToArray();
-            var a = db.Reservations.Where(r => r.Place.RestaurantId == id).ToArray();
-            var b = db.Reservations.Where(r => r.Place.RestaurantId == id).Select(r => r.AppUser).ToArray();
-
-            result.AllUsersData = db.Reservations.Where(r => r.Place.RestaurantId == id).Select(r => r.AppUser)
-                .Select(c => new MiniUserData
-                {
-                    UserName = c.UserName,
-                    Id = c.Id
-                }).ToArray();
-
-            return View(result);
+            var model = db.Restaurants.Where(x => id == x.Id).Select(x => new InputRestaurantModel
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Price = x.Price,
+                ImgURL = $"/img/{x.Images.FirstOrDefault().Id}.{x.Images.FirstOrDefault().Extention}",
+                Town = x.Town,
+                Address = x.Address
+            }).FirstOrDefault();
+            return this.View(model);
         }
 
-        //[Authorize(Roles = "Admin")]
 
+        //Restaurant restaurantFd = db.Restaurants.Where(x => x.IsDeleted == false)
+        //    .Include(r => r.Places).FirstOrDefault(r => r.Id == id);
 
-        public IActionResult Delete(int id)
-        {
-            Restaurant restaurantFd = db.Restaurants.FirstOrDefault(r => r.Id == id);
-            restaurantFd.IsDeleted = true;
-            db.Update(restaurantFd);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //var result = new DetailsRestaurantDTO_out();
+        //result.Restarant = restaurantFd;
 
+        //var t = db.Reservations.Include(r => r.Place).ToArray();
+        //var a = db.Reservations.Where(r => r.Place.RestaurantId == id).ToArray();
+        //var b = db.Reservations.Where(r => r.Place.RestaurantId == id).Select(r => r.AppUser).ToArray();
+
+        //result.AllUsersData = db.Reservations.Where(r => r.Place.RestaurantId == id).Select(r => r.AppUser)
+        //    .Select(c => new MiniUserData
+        //    {
+        //        UserName = c.UserName,
+        //        Id = c.Id
+        //    }).ToArray();
+
+        //return View(result);
 
 
     }
+
+    //[Authorize(Roles = "Admin")]
+
+
+    //public IActionResult Delete(int id)
+    //{
+    //    Restaurant restaurantFd = db.Restaurants.FirstOrDefault(r => r.Id == id);
+    //    restaurantFd.IsDeleted = true;
+    //    db.Update(restaurantFd);
+    //    db.SaveChanges();
+    //    return RedirectToAction("Index");
+    //}
+
+
+
 }
+
