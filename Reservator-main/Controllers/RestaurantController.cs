@@ -141,7 +141,10 @@ namespace Reservator.Controllers
             return this.View(model);
         }
 
-
+        public IActionResult Contacts()
+        {
+            return View();
+        }
         //Restaurant restaurantFd = db.Restaurants.Where(x => x.IsDeleted == false)
         //    .Include(r => r.Places).FirstOrDefault(r => r.Id == id);
 
