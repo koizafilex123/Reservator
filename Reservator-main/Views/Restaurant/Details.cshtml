@@ -89,11 +89,22 @@
 </div>
 <br></br>
 <div class="d-flex justify-content-center">
-     <a asp-action="IsReserved" asp-route-id="@Model.Id" style="margin-right:8px;">
-        <button style="background-color:#ff5f09; font-size:20px;" class="btn ">
-            Резервирай
-        </button>
-    </a>
+    @if (@Model.IsReserved == false)
+    {
+        <a asp-action="IsReserved" asp-route-id="@Model.Id" style="margin-right:8px;">
+            <button style="background-color:#ff5f09; font-size:20px;" class="btn ">
+                Резервирай
+            </button>
+        </a>
+    }
+    else
+    {
+        <a asp-action="IsReserved" asp-route-id="@Model.Id" style="margin-right:8px;">
+            <button style=" font-size:20px;" class="btn btn-success" disabled>
+                Резервиран
+            </button>
+        </a>
+    }
 
-        @*<a class="btn " style="background-color:#ff5f09; font-size:20px;" asp-action="IsReserved" asp-route-id="@Model.Id">Резервирай</a>*@
+    @*<a class="btn " style="background-color:#ff5f09; font-size:20px;" asp-action="IsReserved" asp-route-id="@Model.Id">Резервирай</a>*@
 </div>
