@@ -12,6 +12,7 @@
         public string ImgURL { get; set; }
         public IFormFile Image { get; set; }
         public double? Price { get; set; }
+        public bool IsReserved { get; set; }
 
     }
 }

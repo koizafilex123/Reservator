@@ -39,6 +39,7 @@ namespace Reservator.Controllers
                 Pictures = x.Pictures,
                 //Rating = x.Rating,
                 Price = (double)x.Price,
+                IsReserved = x.IsReserved,
                 ImgURL = $"/img/{x.Images.FirstOrDefault().Id}.{x.Images.FirstOrDefault().Extention}", //прочитене на снимката от базата данни
             }).ToList();
 
@@ -123,6 +124,22 @@ namespace Reservator.Controllers
             db.SaveChanges();
             return this.RedirectToAction("Index");
         }
+        public IActionResult Delete(int id)
+        {
+            Restaurant restaurantFd = db.Restaurants.FirstOrDefault(r => r.Id == id);
+            restaurantFd.IsDeleted = true;
+            db.Update(restaurantFd);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public IActionResult IsReserved(int id)
+        {
+            Restaurant restaurantFd = db.Restaurants.FirstOrDefault(r => r.Id == id);
+            restaurantFd.IsReserved = true;
+            db.Update(restaurantFd);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
         public IActionResult Details(int id)
         {
@@ -136,12 +153,17 @@ namespace Reservator.Controllers
                 Price = x.Price,
                 ImgURL = $"/img/{x.Images.FirstOrDefault().Id}.{x.Images.FirstOrDefault().Extention}",
                 Town = x.Town,
+                IsReserved = x.IsReserved,
                 Address = x.Address
             }).FirstOrDefault();
             return this.View(model);
         }
 
         public IActionResult Contacts()
+        {
+            return View();
+        }
+        public IActionResult AboutMe()
         {
             return View();
         }
@@ -170,14 +192,7 @@ namespace Reservator.Controllers
     //[Authorize(Roles = "Admin")]
 
 
-    //public IActionResult Delete(int id)
-    //{
-    //    Restaurant restaurantFd = db.Restaurants.FirstOrDefault(r => r.Id == id);
-    //    restaurantFd.IsDeleted = true;
-    //    db.Update(restaurantFd);
-    //    db.SaveChanges();
-    //    return RedirectToAction("Index");
-    //}
+   
 
 
 

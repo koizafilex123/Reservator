@@ -22,12 +22,12 @@
         <p>Няма ресторанти</p>
     }
     @* @foreach (var item in Model)
-    {
+        {
 
-    }*@
+        }*@
     <div class="d-flex flex-wrap justify-content-around">
         @*   @for (int i = 0; i < 1; i++)
-        {*@
+            {*@
         @foreach (var rest in Model)
         {
             <div class="card my-4" style="width: 18rem;">
@@ -39,14 +39,14 @@
                     <br><br>
 
                     @*@if (rest.Places.Any())
-                {
-                <p class="card-text"><i class="fas fa-map-marked-alt text-danger"></i> Места в ресторанта @(string.Join(", ", rest.Places.Select(p => p.Location)))</p>
-                }
-                else
-                {
-                <p class="card-text">Няма никакви места в ресторанта!</p>
-                }
-                *@
+                        {
+                        <p class="card-text"><i class="fas fa-map-marked-alt text-danger"></i> Места в ресторанта @(string.Join(", ", rest.Places.Select(p => p.Location)))</p>
+                        }
+                        else
+                        {
+                        <p class="card-text">Няма никакви места в ресторанта!</p>
+                        }
+                    *@
                     <div class="d-flex justify-content-center">
                         <div>
                             <a asp-action="Details" style="margin-right:5px; background-color:#ff7407; font-size:14px;" asp-route-id="@rest.Id" class="btn "><b>Подробна информация</b></a>
@@ -68,6 +68,12 @@
                                 <i class="fas fa-pen" style="color:white;"></i>
                             </button>
                         </a>
+                        @*<a asp-action="IsReserved" asp-route-id="@rest.Id" style="margin-right:8px;">
+                            <button style="background-color:#ff5f09; font-size:20px;" class="btn ">
+                                Резервирай
+                            </button>
+                        </a>*@
+
                     </div>
                 </div>
             </div>

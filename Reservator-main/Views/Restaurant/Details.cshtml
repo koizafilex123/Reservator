@@ -81,14 +81,19 @@
             <br>
 
         </div>
-
-        <img src="@Model.ImgURL">
+        <br>
+        <img width="550px;" src="@Model.ImgURL">
 
     </div>
 
 </div>
 <br></br>
 <div class="d-flex justify-content-center">
+     <a asp-action="IsReserved" asp-route-id="@Model.Id" style="margin-right:8px;">
+        <button style="background-color:#ff5f09; font-size:20px;" class="btn ">
+            Резервирай
+        </button>
+    </a>
 
-    <button class="btn " style="background-color:#ff5f09; font-size:20px;">Резервирай</button>
+        @*<a class="btn " style="background-color:#ff5f09; font-size:20px;" asp-action="IsReserved" asp-route-id="@Model.Id">Резервирай</a>*@
 </div>
