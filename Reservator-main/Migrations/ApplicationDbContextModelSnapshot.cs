@@ -331,8 +331,8 @@ namespace Reservator.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsReserved")
-                        .HasColumnType("bit");
+                    b.Property<string>("IsReserved")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MainPic")
                         .HasColumnType("nvarchar(max)");

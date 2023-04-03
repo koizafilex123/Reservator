@@ -27,12 +27,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="Index">Ресторанти</a>
                         </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Restaurant" asp-action="Booked">Резервирани</a>
+                            </li>
+                        }
                         @* <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                             </li>*@
                         @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                         {
-                            <li >
+                            <li>
                                 <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="Index">Админ панел</a>
                             </li>
                         }

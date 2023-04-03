@@ -13,7 +13,7 @@ namespace Reservator.Data
         public DbSet<Place> Places { get; set; }
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<RestaurantUserGrade> RestaurantUserGrades { get; set; }
-        
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         { }

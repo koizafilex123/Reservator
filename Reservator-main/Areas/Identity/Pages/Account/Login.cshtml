@@ -5,11 +5,18 @@
     ViewData["Title"] = "Log in";
 }
 
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href=~/css/style.css>
+
 <div class="row">
     <div class="col-md-4">
-        <section>
+      @*  <section>
             <form id="account" method="post">
-              
+
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-floating">
@@ -26,24 +33,70 @@
                     <div class="checkbox">
                         <label asp-for="Input.RememberMe" class="form-label">
                             <input class="form-check-input" asp-for="Input.RememberMe" />
-                         Запомни ме
+                            Запомни ме
                         </label>
                     </div>
                 </div>
                 <div>
                     <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Вход</button>
                 </div>
-                
+
             </form>
+        </section>*@
+
+
+        <section class="ftco-section">
+            <div class="container">
+                <div class="d-flex justify-content-center">
+                    <div class="col-md-7 col-lg-5">
+                        <div class="login-wrap p-4 p-md-5" style="width:700px;">
+                            <div class="icon d-flex align-items-center justify-content-center">
+                                <span class="fa fa-user-o"></span>
+                            </div>
+                            <h3 class="text-center mb-4">Sign In</h3>
+                            <form aid="account" method="post" class="login-form">
+                                <div class="form-group">
+                                    <input asp-for="Input.Email" type="text" class="form-control rounded-left" placeholder="Username" required>
+                                </div>
+                                <div class="form-group d-flex">
+                                    <input asp-for="Input.Password" type="password" class="form-control rounded-left" placeholder="Password" required>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="form-control btn btn-primary rounded submit px-3">Login</button>
+                                </div>
+                                <div class="form-group d-md-flex">
+                                    <div class="w-50">
+                                        <label asp-for="Input.RememberMe" class="form-label">
+                                            <input class="form-check-input" asp-for="Input.RememberMe" />
+                                            Запомни ме
+                                        </label>
+                                    </div>
+                                    <div class="w-50 text-md-right">
+                                        <a href="#">Forgot Password</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
+
+
     </div>
-    
-            
-            
-        </section>
-    </div>
+
+
+
+    </section>
+</div>
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+<partial name="_ValidationScriptsPartial" />
 }
+<script src="js/jquery.min.js"></script>
+<script src="js/popper.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
+
+

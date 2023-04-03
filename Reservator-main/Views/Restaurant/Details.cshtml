@@ -89,7 +89,7 @@
 </div>
 <br></br>
 <div class="d-flex justify-content-center">
-    @if (@Model.IsReserved == false)
+    @if (@Model.IsReserved == null)
     {
         <a asp-action="IsReserved" asp-route-id="@Model.Id" style="margin-right:8px;">
             <button style="background-color:#ff5f09; font-size:20px;" class="btn ">
@@ -97,14 +97,17 @@
             </button>
         </a>
     }
+    
     else
     {
-        <a asp-action="IsReserved" asp-route-id="@Model.Id" style="margin-right:8px;">
-            <button style=" font-size:20px;" class="btn btn-success" disabled>
-                Резервиран
+        <a asp-action="Unsubscribe" asp-route-id="@Model.Id" style="margin-right:8px;">
+            <button style=" font-size:20px;" class="btn btn-success" >
+                Отпиши се
             </button>
         </a>
     }
+        
+    
 
     @*<a class="btn " style="background-color:#ff5f09; font-size:20px;" asp-action="IsReserved" asp-route-id="@Model.Id">Резервирай</a>*@
 </div>

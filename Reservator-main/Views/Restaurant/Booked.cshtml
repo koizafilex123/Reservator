@@ -1,0 +1,52 @@
+﻿@*rezervirani restoranti*@
+
+@model ICollection<Reservator.Models.InputRestaurantModel>
+
+<div class="restorant-index">
+
+
+
+
+    @if (Model.Any())
+    {
+        <h1>Резервирани ресторанти</h1>
+
+    }
+    else
+    {
+        <p>Няма ресторанти</p>
+    }
+        
+    <div class="d-flex flex-wrap justify-content-around">
+       
+        @foreach (var rest in Model)
+        {
+            <div class="card my-4" style="width: 18rem;">
+                <img src="@rest.ImgURL" style="height:200px;" class="card-img-top" alt="main-pic">
+                <div class="card-body">
+                    <h5 class="card-title float-start"><i class="fas fa-utensils"></i> @rest.Name</h5>
+                    <h6 class="card-title float-end">@rest.Price</h6>
+
+                    <br><br>
+
+                    
+                    <div class="d-flex justify-content-center">
+                        <div>
+                            <a asp-action="Details" style="margin-right:5px; background-color:#ff7407; font-size:14px;" asp-route-id="@rest.Id" class="btn "><b>Подробна информация</b></a>
+                        </div>
+
+
+                    </div>
+                   
+                </div>
+            </div>
+        }
+
+    </div>
+
+
+
+
+</div>
+
+

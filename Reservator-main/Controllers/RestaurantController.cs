@@ -22,15 +22,17 @@ namespace Reservator.Controllers
             this.webHostEnvironment = webHostEnvironment;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             //List<Restaurant> allRestaurants = db.Restaurants
             //    .Include(r => r.Places)
             //    .Where(x => x.IsDeleted == false)
             //    //.ThenInclude(p=>p.Reservations)
             //    .ToList();
+            string myId = (await GetCurrentUserAsync()).Id;
 
-            var model = db.Restaurants.Where(x => x.IsDeleted == false).Select(x => new InputRestaurantModel
+
+            var model = db.Restaurants.Where(x => x.IsDeleted == false && x.IsReserved == null).Select(x => new InputRestaurantModel
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -132,13 +134,47 @@ namespace Reservator.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        public IActionResult IsReserved(int id)
+        [Authorize]
+        public async Task<IActionResult> IsReserved(int id)
         {
+            string myId = (await GetCurrentUserAsync()).Id;
+
             Restaurant restaurantFd = db.Restaurants.FirstOrDefault(r => r.Id == id);
-            restaurantFd.IsReserved = true;
+            restaurantFd.IsReserved = myId;
+            db.Update(restaurantFd);
+            db.SaveChanges();
+            return RedirectToAction("Booked");
+        }
+        //Unsubscribe
+        public async Task<IActionResult> Unsubscribe(int id)
+        {
+            string myId = (await GetCurrentUserAsync()).Id;
+
+            Restaurant restaurantFd = db.Restaurants.FirstOrDefault(r => r.Id == id);
+
+            restaurantFd.IsReserved = null;
             db.Update(restaurantFd);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> Booked()
+        {
+            string myId = (await GetCurrentUserAsync()).Id;
+
+            var model = db.Restaurants.Where(x => x.IsDeleted == false && x.IsReserved == myId).Select(x => new InputRestaurantModel
+            {
+                Id = x.Id,
+                Name = x.Name,
+                MainPic = x.MainPic,
+                Address = x.Address,
+                Pictures = x.Pictures,
+                //Rating = x.Rating,
+                Price = (double)x.Price,
+                IsReserved = x.IsReserved,
+                ImgURL = $"/img/{x.Images.FirstOrDefault().Id}.{x.Images.FirstOrDefault().Extention}", //прочитене на снимката от базата данни
+            }).ToList();
+
+            return View(model);
         }
 
         public IActionResult Details(int id)
@@ -161,6 +197,7 @@ namespace Reservator.Controllers
 
         public IActionResult Contacts()
         {
+
             return View();
         }
         public IActionResult AboutMe()
@@ -192,7 +229,7 @@ namespace Reservator.Controllers
     //[Authorize(Roles = "Admin")]
 
 
-   
+
 
 
 

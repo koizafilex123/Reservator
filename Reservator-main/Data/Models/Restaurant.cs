@@ -17,11 +17,12 @@ namespace Reservator.Models
         public string? Pictures { get; set; }
         public double? Rating { get; set; }
         public double? Price { get; set; }
-        public bool IsReserved { get; set; }
+        public string? IsReserved { get; set; }
 
         public virtual ICollection<Image> Images { get; set; }
         public virtual ICollection<Place> Places { get; set; }
         public virtual ICollection<RestaurantUserGrade> RestaurantUserGrades { get; set; }
+        
     }
 
 

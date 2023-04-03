@@ -12,8 +12,8 @@ using Reservator.Data;
 namespace Reservator.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230331093752_init5")]
-    partial class init5
+    [Migration("20230403065914_reservator4")]
+    partial class reservator4
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -333,8 +333,8 @@ namespace Reservator.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<double>("IsReserved")
-                        .HasColumnType("float");
+                    b.Property<string>("IsReserved")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MainPic")
                         .HasColumnType("nvarchar(max)");

@@ -4,28 +4,28 @@
 
 namespace Reservator.Migrations
 {
-    public partial class init6 : Migration
+    public partial class reservator2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.AlterColumn<string>(
+                name: "IsReserved",
+                table: "Restaurants",
+                type: "nvarchar(max)",
+                nullable: false,
+                oldClrType: typeof(bool),
+                oldType: "bit");
+        }
+
+        protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<bool>(
                 name: "IsReserved",
                 table: "Restaurants",
                 type: "bit",
                 nullable: false,
-                oldClrType: typeof(double),
-                oldType: "float");
-        }
-
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.AlterColumn<double>(
-                name: "IsReserved",
-                table: "Restaurants",
-                type: "float",
-                nullable: false,
-                oldClrType: typeof(bool),
-                oldType: "bit");
+                oldClrType: typeof(string),
+                oldType: "nvarchar(max)");
         }
     }
 }
