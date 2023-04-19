@@ -40,6 +40,7 @@ namespace Reservator.Controllers
                 Address = x.Address,
                 Pictures = x.Pictures,
                 //Rating = x.Rating,
+                Town = x.Town,
                 Price = (double)x.Price,
                 IsReserved = x.IsReserved,
                 ImgURL = $"/img/{x.Images.FirstOrDefault().Id}.{x.Images.FirstOrDefault().Extention}", //прочитене на снимката от базата данни
