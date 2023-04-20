@@ -65,7 +65,7 @@ namespace Reservator.Controllers
                 MainPic = model.MainPic,
                 Address = model.Address,
                 Pictures = model.Pictures,
-                //Town = model.Town,
+                Town = model.Town,
                 Rating = model.Rating,
                 Price = model.Price
             };
